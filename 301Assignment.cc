@@ -2,19 +2,13 @@
 #include <iostream>
 #include <random>
 #include <fstream>
+#include <math.h>
 
 using namespace std;
 
 int select(int a[], int l, int m, int h);
 
-
-
-
-
-
-
 //Returns the median value in a given array A of n numbers. This is the kth element, where k = |n/2|, if the array was sorted.
-
 int bruteForceMedian(int a[], int n)
 {
     int k = abs(n/2);
@@ -54,7 +48,7 @@ int median(int a[], int n)
     }
     else
     {
-	select(a, 0, floor(n/2), n-1);
+	return select(a, 0, floor(n/2), n-1);
     }
 }
 
@@ -62,18 +56,21 @@ int partition(int a[], int l, int h)
 {
     int pivotval = a[l];
     int pivotloc = l;
-    for (int j = l+1; j < h; j++)
+    for (int j = l + 1; j <= h; j++)
     {
 	if (a[j] < pivotval)
 	{
 	    pivotloc++;
-
 	    //Swaps elements around the pivot
-	    //swap(a[pivotloc], a[j]);
+	    int temp = a[pivotloc];
+	    a[pivotloc] = a[j];
+	    a[j] = temp;
 	}
     }
     //Put pivot element in place
-    //swap(a[l], a[pivotloc]);
+    int temp = a[l];
+    a[l] = a[pivotloc];
+    a[pivotloc] = temp;
     return pivotloc;
 
 }
@@ -94,6 +91,7 @@ int select(int a[], int l, int m, int h)
     {
 	return select(a, pos + 1, m, h);
     }
+    return 0;
 }
 
 
@@ -126,5 +124,6 @@ int main()
     }
     cout << endl;
     cout << bruteForceMedian(p, n) << endl;
+    cout << median(p, n) << endl;
     return 0;
 }
