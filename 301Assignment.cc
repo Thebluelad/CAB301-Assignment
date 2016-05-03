@@ -5,6 +5,14 @@
 
 using namespace std;
 
+int select(int a[], int l, int m, int h);
+
+
+
+
+
+
+
 //Returns the median value in a given array A of n numbers. This is the kth element, where k = |n/2|, if the array was sorted.
 
 int bruteForceMedian(int a[], int n)
@@ -37,6 +45,59 @@ int bruteForceMedian(int a[], int n)
     }
     return 42;
 }
+
+int median(int a[], int n)
+{
+    if (n == 1)
+    {
+	return a[0];
+    }
+    else
+    {
+	select(a, 0, floor(n/2), n-1);
+    }
+}
+
+int partition(int a[], int l, int h)
+{
+    int pivotval = a[l];
+    int pivotloc = l;
+    for (int j = l+1; j < h; j++)
+    {
+	if (a[j] < pivotval)
+	{
+	    pivotloc++;
+
+	    //Swaps elements around the pivot
+	    //swap(a[pivotloc], a[j]);
+	}
+    }
+    //Put pivot element in place
+    //swap(a[l], a[pivotloc]);
+    return pivotloc;
+
+}
+
+int select(int a[], int l, int m, int h)
+{
+    //Returns the value at index m in array slice a[l..h], if the slice were sorted into nondecreasing order.
+    int pos = partition(a, l, h);
+    if (pos == m)
+    {
+	return a[pos];
+    }
+    if (pos > m)
+    {
+	return select(a, l, m, pos - 1);
+    }
+    if (pos < m)
+    {
+	return select(a, pos + 1, m, h);
+    }
+}
+
+
+
 
 int * generateArray(int n)
 {
