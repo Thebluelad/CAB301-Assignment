@@ -7,8 +7,13 @@
 using namespace std;
 
 int select(int a[], int l, int m, int h);
+int comparisons = 0;
 
 //Returns the median value in a given array A of n numbers. This is the kth element, where k = |n/2|, if the array was sorted.
+
+//OOOOOOOOOOOOOOOOOOOOOOOOh.
+//Might need to sort the random array for it to work nicely.
+//We'll find out I guess.
 int bruteForceMedian(int a[], int n)
 {
     int k = abs(n/2);
@@ -94,9 +99,6 @@ int select(int a[], int l, int m, int h)
     return 0;
 }
 
-
-
-
 int * generateArray(int n)
 {
     int a[n];
@@ -116,14 +118,18 @@ int * generateArray(int n)
 
 int main()
 {
-    int n = 100;
-    int *p = generateArray(n);
-    for (int i = 0; i < n; i++)
+    int n = 1000;
+    int median;
+    int *p;
+    for (int j = 10; j <= n; j += 10)
     {
-	cout << *(p + i) << ",";
+	for(int f = 0; f <= 10; f++)
+	{
+	    p = generateArray(j);
+	    median = bruteForceMedian(p, j);
+	    cout << j << "," << comparisons << endl;
+	    comparisons = 0;
+	}
     }
-    cout << endl;
-    cout << bruteForceMedian(p, n) << endl;
-    cout << median(p, n) << endl;
     return 0;
 }
