@@ -36,6 +36,7 @@ int bruteForceMedian(int a[], int n)
 		}
 	    }
 	}
+	comparisons++;
 	if (numSmaller < k && k <= (numSmaller + numEqual))
 	{
 	    return a[i];
@@ -103,7 +104,7 @@ int * generateArray(int n)
 {
     int a[n];
     int min = 0;
-    int max = 10;
+    int max = 1000;
 
     std::random_device r;
     std::mt19937 rand(r());
