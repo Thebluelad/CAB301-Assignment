@@ -20,6 +20,8 @@ int bruteForceMedian(int a[], int n)
 
     for (int i = 0; i < n-1; i++)
     {
+	comparisons++;
+
 	int numSmaller = 0;
 	int numEqual = 0;
 	for (int j = 0; j < n-1; j++)
@@ -36,7 +38,6 @@ int bruteForceMedian(int a[], int n)
 		}
 	    }
 	}
-	comparisons++;
 	if (numSmaller < k && k <= (numSmaller + numEqual))
 	{
 	    return a[i];
@@ -120,17 +121,27 @@ int * generateArray(int n)
 int main()
 {
     int n = 1000;
+    int numTests = 100;
+    int averageComparisons = comparisons;
     int median;
     int *p;
     for (int j = 10; j <= n; j += 10)
     {
-	for(int f = 0; f <= 10; f++)
+	for(int f = 0; f <= numTests; f++)
 	{
 	    p = generateArray(j);
+	    clock_t begin = clock();
 	    median = bruteForceMedian(p, j);
+	    clock_t end = clock();
+	    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 	    cout << j << "," << comparisons << endl;
+	    cout << j << "," << elapsed_secs << endl;
+	    averageComparisons += comparisons;
+	    //cout << averageComparisons << endl;
 	    comparisons = 0;
 	}
+	//cout << j << "," << averageComparisons/numTests << endl;
+	averageComparisons = 0;
     }
     return 0;
 }
