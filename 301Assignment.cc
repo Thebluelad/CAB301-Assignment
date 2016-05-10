@@ -3,6 +3,7 @@
 #include <random>
 #include <fstream>
 #include <math.h>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -107,21 +108,26 @@ int * generateArray(int n)
     int min = 0;
     int max = 1000;
 
+    struct timeval t1;
+    gettimeofday(&t1, NULL);
+    srand(t1.tv_usec * t1.tv_sec);
+    
     std::random_device r;
     std::mt19937 rand(r());
     std::uniform_int_distribution<int> uniform(min,max);
 
     for(int i = 0; i < n; i++)
     {
-	a[i] = uniform(rand);
+	//a[i] = uniform(rand);
+	a[i] = rand();
     }
     return a;
 }
 
 int main()
 {
-    int n = 1000;
-    int numTests = 100;
+    int n = 10000;
+    int numTests = 10;
     int averageComparisons = comparisons;
     int median;
     int *p;
@@ -133,7 +139,7 @@ int main()
 	    clock_t begin = clock();
 	    median = bruteForceMedian(p, j);
 	    clock_t end = clock();
-	    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+	    double elapsed_secs = double(end - begin);
 	    cout << j << "," << comparisons << endl;
 	    cout << j << "," << elapsed_secs << endl;
 	    averageComparisons += comparisons;
