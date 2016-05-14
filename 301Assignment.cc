@@ -11,22 +11,17 @@ int select(int a[], int l, int m, int h);
 int comparisons = 0;
 
 //Returns the median value in a given array A of n numbers. This is the kth element, where k = |n/2|, if the array was sorted.
-
-//OOOOOOOOOOOOOOOOOOOOOOOOh.
-//Might need to sort the random array for it to work nicely.
-//We'll find out I guess.
 int bruteForceMedian(int a[], int n)
 {
-    int k = abs(n/2);
+    int k = ceil(n/2);
 
-    for (int i = 0; i < n-1; i++)
+    for (int i = 0; i <= n-1; i++)
     {
-	comparisons++;
-
 	int numSmaller = 0;
 	int numEqual = 0;
-	for (int j = 0; j < n-1; j++)
+	for (int j = 0; j <= n-1; j++)
 	{
+	    comparisons++;
 	    if (a[j] < a[i])
 	    {
 		numSmaller++;
@@ -102,52 +97,66 @@ int select(int a[], int l, int m, int h)
     return 0;
 }
 
-int * generateArray(int n)
+int * generateArray(int n, int seed)
 {
+    srand(time(NULL) * seed^clock());
     int a[n];
-    int min = 0;
-    int max = 1000;
-
-    struct timeval t1;
-    gettimeofday(&t1, NULL);
-    srand(t1.tv_usec * t1.tv_sec);
     
-    std::random_device r;
-    std::mt19937 rand(r());
-    std::uniform_int_distribution<int> uniform(min,max);
-
     for(int i = 0; i < n; i++)
     {
-	//a[i] = uniform(rand);
-	a[i] = rand();
+	int randGenerated = rand() % 10;
+	a[i] = randGenerated;
+	cout << randGenerated << " ";
+	cout << a[i] << endl;
     }
+    cout << endl;
+    
     return a;
 }
 
+void generateArray2(int *a, int n, int seed)
+{
+    srand(time(NULL) * seed^clock());
+    for(int i = 0; i < n; i++)
+    {
+	int randGenerated = rand();
+	a[i] = randGenerated;
+//	cout << randGenerated << " ";
+//	cout << a[i] << endl;
+    }
+//    cout << endl;
+}
+
+
 int main()
 {
-    int n = 10000;
-    int numTests = 10;
-    int averageComparisons = comparisons;
+    int n = 1000;
+    int numTests = 5;
     int median;
     int *p;
     for (int j = 10; j <= n; j += 10)
     {
-	for(int f = 0; f <= numTests; f++)
+	for(int f = 0; f < numTests; f++)
 	{
-	    p = generateArray(j);
-	    clock_t begin = clock();
+	    int generated[j];
+	    p = generated;
+	    generateArray2(p, j, f * j);
+//	    clock_t begin = clock();
 	    median = bruteForceMedian(p, j);
-	    clock_t end = clock();
-	    double elapsed_secs = double(end - begin);
+//	    clock_t end = clock();
+	    
+//	    double elapsed_secs = double(end - begin);
+//	    cout << j << "," << elapsed_secs << endl;
 	    cout << j << "," << comparisons << endl;
-	    cout << j << "," << elapsed_secs << endl;
-	    averageComparisons += comparisons;
-	    //cout << averageComparisons << endl;
+
+//	    for (int i = 0; i < n; i++)
+//	    {
+//		cout << *(p + i) << " ";
+//	    }
+//	    cout << endl;
+	    
 	    comparisons = 0;
 	}
-	//cout << j << "," << averageComparisons/numTests << endl;
-	averageComparisons = 0;
     }
     return 0;
 }
