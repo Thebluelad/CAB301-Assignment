@@ -9,6 +9,7 @@ using namespace std;
 
 int select(int a[], int l, int m, int h);
 int comparisons = 0;
+int total = 0;
 
 //Returns the median value in a given array A of n numbers. This is the kth element, where k = |n/2|, if the array was sorted.
 int bruteForceMedian(int a[], int n)
@@ -63,6 +64,7 @@ int partition(int a[], int l, int h)
     {
 	if (a[j] < pivotval)
 	{
+	    //This is where the comparisons should happen
 	    pivotloc++;
 	    //Swaps elements around the pivot
 	    int temp = a[pivotloc];
@@ -130,11 +132,11 @@ void generateArray2(int *a, int n, int seed)
 
 int main()
 {
-    int n = 1000;
-    int numTests = 5;
+    int n = 10000;
+    int numTests = 50;
     int median;
     int *p;
-    for (int j = 10; j <= n; j += 10)
+    for (int j = 0; j <= n; j += 500)
     {
 	for(int f = 0; f < numTests; f++)
 	{
@@ -147,16 +149,18 @@ int main()
 	    
 //	    double elapsed_secs = double(end - begin);
 //	    cout << j << "," << elapsed_secs << endl;
-	    cout << j << "," << comparisons << endl;
+	    
 
 //	    for (int i = 0; i < n; i++)
 //	    {
 //		cout << *(p + i) << " ";
 //	    }
 //	    cout << endl;
-	    
+	    total += comparisons;
 	    comparisons = 0;
 	}
+	cout << j << "," << total/numTests << endl;
+	total = 0;
     }
     return 0;
 }
