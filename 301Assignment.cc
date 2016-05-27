@@ -44,7 +44,7 @@ int bruteForceMedian(int a[], int n)
     return 42;
 }
 
-int median(int a[], int n)
+int partitionMedian(int a[], int n)
 {
     if (n == 1)
     {
@@ -65,6 +65,7 @@ int partition(int a[], int l, int h)
 	if (a[j] < pivotval)
 	{
 	    //This is where the comparisons should happen
+	    comparisons++;
 	    pivotloc++;
 	    //Swaps elements around the pivot
 	    int temp = a[pivotloc];
@@ -146,7 +147,7 @@ int main()
 		p = generated;
 		generateArray2(p, j, f * j);
 		clock_t begin = clock();
-		median = bruteForceMedian(p, j);
+		median = partitionMedian(p, j);
 		clock_t end = clock();
 	    
 		double elapsed_secs = double(end - begin);
