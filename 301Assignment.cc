@@ -9,7 +9,7 @@ using namespace std;
 
 int select(int a[], int l, int m, int h);
 int comparisons = 0;
-int total = 0;
+double total = 0;
 
 //Returns the median value in a given array A of n numbers. This is the kth element, where k = |n/2|, if the array was sorted.
 int bruteForceMedian(int a[], int n)
@@ -138,16 +138,18 @@ int main()
     int *p;
     for (int j = 0; j <= n; j += 500)
     {
-	for(int f = 0; f < numTests; f++)
+	for (int i = 0; i < 5; i++)
 	{
-	    int generated[j];
-	    p = generated;
-	    generateArray2(p, j, f * j);
-//	    clock_t begin = clock();
-	    median = bruteForceMedian(p, j);
-//	    clock_t end = clock();
+	    for(int f = 0; f < numTests; f++)
+	    {
+		int generated[j];
+		p = generated;
+		generateArray2(p, j, f * j);
+		clock_t begin = clock();
+		median = bruteForceMedian(p, j);
+		clock_t end = clock();
 	    
-//	    double elapsed_secs = double(end - begin);
+		double elapsed_secs = double(end - begin);
 //	    cout << j << "," << elapsed_secs << endl;
 	    
 
@@ -156,11 +158,13 @@ int main()
 //		cout << *(p + i) << " ";
 //	    }
 //	    cout << endl;
-	    total += comparisons;
-	    comparisons = 0;
+		//total += comparisons;
+		total += elapsed_secs;
+		comparisons = 0;
+	    }
+	    cout << j << "," << total/numTests << endl;
+	    total = 0;
 	}
-	cout << j << "," << total/numTests << endl;
-	total = 0;
     }
     return 0;
 }
