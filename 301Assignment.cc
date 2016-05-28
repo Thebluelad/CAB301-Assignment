@@ -238,8 +238,28 @@ void functionalTests()
     testLog << "Brute force expects 5: " << bruteForceMedian(duplicateArrayOdd, 9) << endl;
     testLog << "PartitionMedian expects 5: " << partitionMedian(duplicateArrayOdd, 9) << endl << endl;
 
-    testLog << "Array Generator Tests" << endl << endl;
+    testLog << "Array Generator Tests" << endl;
 
+    testLog << "Should print 5 different random arrays for each length from 1 to 20" << endl << endl;
+    for (int i = 1; i < 20; i++)
+    {
+	for (int j = 0; j < 5; j++)
+	{
+	    int *p;
+	    int *b;
+	    int generated[i];
+	    p = generated;
+	    b = generated;
+	    generateArray(b, p, i, i * j);
+
+	    for (int k = 0; k < i; k++)
+	    {
+		testLog << p[k] << " ";
+	    }
+	    testLog << endl;
+	}
+	testLog << endl;
+    }
     testLog.close();
 }
 
