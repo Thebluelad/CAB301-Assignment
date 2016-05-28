@@ -1,0 +1,39 @@
+Median Function Tests
+
+Test 1 - Basic Array Even
+Testing: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+Brute force expects 5: 5
+PartitionMedian expects 6: 6
+
+Test 2 - Basic Array Odd
+Testing: 1, 2, 3, 4, 5, 6, 7, 8, 9
+Brute force expects 5: 5
+PartitionMedian expects 5: 5
+
+Test 3 - Reverse Array Odd
+Testing: 9, 8, 7, 6, 5, 4, 3, 2, 1
+Brute force expects 5: 5
+PartitionMedian expects 5: 5
+
+Test 4 - Reverse Array Even
+Testing: 10, 9, 8, 7, 6, 5, 4, 3, 2, 1
+Brute force expects 5: 5
+PartitionMedian expects 6: 6
+
+Test 5 - Duplicate Numbers Even
+Testing: 1, 2, 4, 4, 5, 6, 7, 8, 9, 10
+Brute force expects 5: 5
+PartitionMedian expects 6: 6
+
+Test 6 - Duplicate Numbers Odd
+Testing: 1, 2, 4, 4, 5, 6, 7, 8, 9
+Brute force expects 5: 5
+PartitionMedian expects 5: 5
+
+Test 7 - Random Values Odd
+Testing: 2, 3, 6, 5, 8, 7, 1, 9, 4
+Brute force expects 5: 5
+PartitionMedian expects 5: 5
+
+Array Generator Tests
+
