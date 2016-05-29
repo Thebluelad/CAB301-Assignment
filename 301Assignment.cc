@@ -9,8 +9,8 @@ using namespace std;
 
 //Constants
 const int STARTN = 0;
-const int FINISHN = 10000;
-const int INCREMENT = 50;
+const int FINISHN = 100000;
+const int INCREMENT = 200;
 const int NUMTESTS = 100;
 
 //Global Variables
@@ -65,7 +65,7 @@ int bruteForceMedian(int a[], int n)
 	}
 
     }
-    //return 42;
+    return 0;
 }
 
 int partitionMedian(int a[], int n)
@@ -121,7 +121,7 @@ int select(int a[], int l, int m, int h)
     {
 	return select(a, pos + 1, m, h);
     }
-    //return 0;
+    return 0;
 }
 
 void generateArray(int *b, int *a, int n, int seed)
@@ -132,62 +132,65 @@ void generateArray(int *b, int *a, int n, int seed)
 	int randGenerated = rand() % 10000;
 	a[i] = randGenerated;
 	b[i] = randGenerated;
-//	cout << randGenerated << ",";
     }
-  //  cout << endl << endl;
 }
 
 
 int main()
 {
     functionalTests();
-    //runComparisonsAndTimeData();
+    runComparisonsAndTimeData();
     return 0;
 }
 
 void runComparisonsAndTimeData()
 {
     graphLog.open("graphLog.csv");
-
+    graphLog << "N" << "," << "Average Comparisons Brute Force" << "," << "Average Execution Time Brute Force" << "," << "Median Brute Force" << "," << "Average Comparisons Partition Median" << "," << "Average Execution Time Partition Median" << "," << "Median Partition Median" << endl;
     for (int j = STARTN; j <= FINISHN; j += INCREMENT)
     {
 	int medianPartition;
 	int medianBruteForce;
-	for (int i = 0; i < 1; i++)
+	for(int f = 0; f < NUMTESTS; f++)
 	{
-	    for(int f = 0; f < NUMTESTS; f++)
-	    {
-		int *p;
-		int *b;
-		int generated[j];
-		p = generated;
-		b = generated;
-		generateArray(b, p, j, f * j);
-		clock_t beginb = clock();
-		medianBruteForce = bruteForceMedian(b, j);
-		clock_t endb = clock();
-		clock_t beginp = clock();
-		medianPartition = partitionMedian(p, j);
-		clock_t endp = clock();
-		double elapsedb = double(endb - beginb);
-		double elapsedp = double(endp - beginp);
-		totalp += comparisonsp;
-		totalb += comparisonsb;
-		totalTimep += elapsedp;
-		totalTimeb += elapsedb;
-		comparisonsb = 0;
-		comparisonsp = 0;
-	    }
-	    graphLog << j << "," << totalb/NUMTESTS << "," << totalTimeb/NUMTESTS << "," << medianBruteForce << ","  << totalp/NUMTESTS << "," << totalTimep/NUMTESTS << "," << medianPartition << endl;
-	    medianPartition = 0;
-	    medianBruteForce = 0;
-	    totalp = 0;
-	    totalb = 0;
-	    totalTimep = 0;
-	    totalTimeb = 0;
+	    int *p;
+	    int *b;
+	    int generated[j];
+	    p = generated;
+	    b = generated;
+	    generateArray(b, p, j, f * j);
+	    
+	    clock_t beginb = clock();
+	    medianBruteForce = bruteForceMedian(b, j);
+	    clock_t endb = clock();
+	    
+	    clock_t beginp = clock();
+	    medianPartition = partitionMedian(p, j);
+	    clock_t endp = clock();
+	    
+	    double elapsedb = double(endb - beginb);
+	    double elapsedp = double(endp - beginp);
+	    
+	    totalp += comparisonsp;
+	    totalb += comparisonsb;
+	    
+	    totalTimep += elapsedp;
+	    totalTimeb += elapsedb;
+	    
+	    comparisonsb = 0;
+	    comparisonsp = 0;
 	}
+	graphLog << j << "," << totalb/NUMTESTS << "," << totalTimeb/NUMTESTS << "," << medianBruteForce << ","  << totalp/NUMTESTS << "," << totalTimep/NUMTESTS << "," << medianPartition << endl;
+	medianPartition = 0;
+	medianBruteForce = 0;
+	totalp = 0;
+	totalb = 0;
+	totalTimep = 0;
+	totalTimeb = 0;
+	
 	
     }
+    graphLog.close();
 }
 
 void functionalTests()
