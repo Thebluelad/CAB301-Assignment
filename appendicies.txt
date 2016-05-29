@@ -1,0 +1,40 @@
+The bruteForceMedian() implementation is extremely similar to the given algorithm. The major differences are the ceil() function on line 41 used to round the number up and the "comparisonsb++;" on line 49 which is used to keep track of the basic operation for this algorithm. This algorithm compares each value with the other valuess in order to find a number with a suitable number of values less than the current value.
+
+
+The partitionMedian() function is a direct implementation of the Median algorithm given in Figure 2.
+
+
+The partition() function is an almost direct implementation of the Partition algorithm given in Figure 3. The only difference being the "comparisonsp++;" on line 91 and the implementation of the swap function. In this particular implementation, the swap is performed by creating a temporary integer to store the value of one position of the array "a[]" and then overriding the value. After this, the temporary value is set to the value which overrode the initial value.
+
+
+The select() function is a direct implementation of the Select algorithm given in Figure 4.
+
+
+The generateArray() function takes two pointers to arrays as arguments as well as the length of the array (n) and a seed value to ensure the randomness of the seeded rand(). The array then loops through each position of the arrays and occupies them with a randomly generated number less than or equal to 10,000. Using two seperate arrays for this function is to ensure that there is memory security between the two functions and the partitionMedian() does not change the form of the median before the bruteForceMedian() has a chance to execute.
+
+
+The main() function is common in all programs and in this case is used to call both the functionalTests() and the runComparisonsAndTimeData() functions.
+
+
+The runComparisonsAndTimeData() function is used to handle the measuring, execution and output of both median functions. It does this by initially opening a .csv file used to output the results and printing the basic headings for each column. It then iterates from an initial array length of "STARTN" to a final array length of "FINISHN" in increments of "INCREMENT". In this particular set of tests;
+
+STARTN = 0
+FINISHN = 10000
+INCREMENT = 75
+
+It then creates integer values to contain the median values found by each array and begins testing. Each array length is tested NUMTESTS times. In this particular set of tests;
+
+NUMTESTS = 100
+
+To process is as follows:
+The function creates arrays to store random integer values in and calles generateArray() to occupy those arrays.
+A clock reading is taken both before and after a bruteForceMedian() is run.
+A clock reading is taken both before and after a partitionMedian() is run.
+The elapsed time is calculated from each of those sets of clock readings and added to the total which is used for average calculation later.
+The comparisons found in both operations are added to a total which is used for average calculation later and then cleared.
+The file then outputs the averaged values and the medians found in the last iteration of the tests and the totals are reset.
+
+The .csv file is then closed and the function completes.
+
+
+The functionalTests() function is used to test various states and compare actual outcomes to the expected outcomes. To do this, it writes values to a text file which are extremely self explanatory. The basic process of the tests is to create an array of a specific form, and then output the results. The functionalTests() function also handles the testing of the generateArray() function. To test this, the function creates five arrays of each size(n) = 1 to n = 19. The arrays generated are then printed to individual lines with each value seperated by a space for readability. Once the values are all printed to the file, the text file is closed.

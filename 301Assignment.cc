@@ -9,8 +9,8 @@ using namespace std;
 
 //Constants
 const int STARTN = 0;
-const int FINISHN = 100000;
-const int INCREMENT = 200;
+const int FINISHN = 10000;
+const int INCREMENT = 75;
 const int NUMTESTS = 100;
 
 //Global Variables
@@ -88,7 +88,6 @@ int partition(int a[], int l, int h)
     {
 	if (a[j] < pivotval)
 	{
-	    //This is where the comparisons should happen
 	    comparisonsp++;
 	    pivotloc++;
 	    //Swaps elements around the pivot
@@ -107,7 +106,6 @@ int partition(int a[], int l, int h)
 
 int select(int a[], int l, int m, int h)
 {
-    //Returns the value at index m in array slice a[l..h], if the slice were sorted into nondecreasing order.
     int pos = partition(a, l, h);
     if (pos == m)
     {
@@ -146,7 +144,13 @@ int main()
 void runComparisonsAndTimeData()
 {
     graphLog.open("graphLog.csv");
-    graphLog << "N" << "," << "Average Comparisons Brute Force" << "," << "Average Execution Time Brute Force" << "," << "Median Brute Force" << "," << "Average Comparisons Partition Median" << "," << "Average Execution Time Partition Median" << "," << "Median Partition Median" << endl;
+    graphLog << "N" << ","
+	     << "Average Comparisons Brute Force" << ","
+	     << "Average Execution Time Brute Force" << ","
+	     << "Median Brute Force" << ","
+	     << "Average Comparisons Partition Median" << ","
+	     << "Average Execution Time Partition Median" << ","
+	     << "Median Partition Median" << endl;
     for (int j = STARTN; j <= FINISHN; j += INCREMENT)
     {
 	int medianPartition;
@@ -180,7 +184,13 @@ void runComparisonsAndTimeData()
 	    comparisonsb = 0;
 	    comparisonsp = 0;
 	}
-	graphLog << j << "," << totalb/NUMTESTS << "," << totalTimeb/NUMTESTS << "," << medianBruteForce << ","  << totalp/NUMTESTS << "," << totalTimep/NUMTESTS << "," << medianPartition << endl;
+	graphLog << j << ","
+		 << totalb/NUMTESTS << ","
+		 << totalTimeb/NUMTESTS << ","
+		 << medianBruteForce << ","
+		 << totalp/NUMTESTS << ","
+		 << totalTimep/NUMTESTS << ","
+		 << medianPartition << endl;
 	medianPartition = 0;
 	medianBruteForce = 0;
 	totalp = 0;
